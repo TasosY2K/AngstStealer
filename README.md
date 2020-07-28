@@ -1,2 +1,4 @@
-# AngstStealer
-A fully fledged stealer which utilizes discord as a cnc and sends valuable information such as chrome passwords, filezilla logs, discord tokens, and more.
+## Angst Stealer
+    AngstStealer is a POC malware which is designed to highlight and utilize Discord as an attack vector. While it is fully functioning it was created for educational purpose's, please do not use misuse this tool.
+    
+    
