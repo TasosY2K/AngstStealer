@@ -46,7 +46,7 @@ PYARMOR: pyarmor pack -e " --onefile --hidden-import=pkg_resources.py2_warn" ang
 ### Demo
 Here is a screenshot of what will be sent through the discord webhook once it is ran. The reason why not windows activation key is included is due to it being run inside a virtual machine thats not activated.
 <p align="center">
-  <img width="460" height="300" src="https://botting.is-ne.at/H5OJTL.png">
+  <img width="560" height="300" src="https://botting.is-ne.at/H5OJTL.png">
 </p>
 
 ### To Do List
