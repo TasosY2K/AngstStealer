@@ -41,18 +41,6 @@ screenshot -> takes a screenshot</br>
 `PYINSTALLER: pyinstaller --onefile --hidden-import=pkg_resources.py2_warn angst.py`</br>
 `PYARMOR: pyarmor pack -e " --onefile --hidden-import=pkg_resources.py2_warn" angst.py`</br>
 
-### Demo
-Example of how the dump folder might look.
-<p align="center">
-  <img width="400" height="300" src="https://i.imgur.com/56vt3pL.png">
-</p>
-<p align="center">
-  <img width="400" height="300" src="https://i.imgur.com/jfURfLb.png">
-</p>
-<p align="center">
-  <img width="400" height="300" src="https://i.imgur.com/JeYJ9tm.png">
-</p>
-
 ### To Do List
 - [x] Add cookie support (just got lazy and forgot)
 - [ ] Add more browsers
