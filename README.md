@@ -10,7 +10,8 @@ AngstStealer is a POC malware which is designed to highlight and utilize Discord
 | Send | Zips and sends all the files through the Discord webhook. |
 | User | Drops userdata about the victim such as IP, Username and Computername. |
 | Windows | Also drops the windows activation key for the victims computer. |
-|UnOfficial |Description |
+
+|Unofficial |Description |
 |------ |----------- |
 | Post Exploitation | Persistance + keylogger, file dropper included. Author: <a href="https://github.com/TheDebianGuy">TheDebianGuy</a> |
 | Discord Spreader | Sends itself in all servers the user is in. Author: <a href="https://github.com/TheDebianGuy">TheDebianGuy</a> Idea: char#9249 |
