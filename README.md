@@ -44,13 +44,13 @@ screenshot -> takes a screenshot</br>
 ### Demo
 Example of how the dump folder might look.
 <p align="center">
-  <img width="560" height="300" src="https://i.imgur.com/56vt3pL.png">
+  <img width="400" height="300" src="https://i.imgur.com/56vt3pL.png">
 </p>
 <p align="center">
-  <img width="560" height="300" src="https://i.imgur.com/jfURfLb.png">
+  <img width="400" height="300" src="https://i.imgur.com/jfURfLb.png">
 </p>
 <p align="center">
-  <img width="560" height="300" src="https://i.imgur.com/JeYJ9tm.png">
+  <img width="400" height="300" src="https://i.imgur.com/JeYJ9tm.png">
 </p>
 
 ### To Do List
