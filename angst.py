@@ -31,7 +31,7 @@ windows - give windows info
 post exploit - persistance with keylogger and filedropper
 """
 CONFIG = {
-    "webhook" : "https://discord.com/api/webhooks/745982826620518451/mbz4j54KG_aj0OpYuO6tGdOLbH4RyGBAuQsE7H9_A7gFF-nn-sKaIxkTs0u241zV-daF",
+    "webhook" : "",
     "url": "",
     "software": {
         "chrome" : True,
